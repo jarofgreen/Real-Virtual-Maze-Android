@@ -23,7 +23,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class MazeActivity extends Activity {
+public class MazeActivity extends Activity implements LocationListener  {
 	
 
     private MapView mapView;
@@ -48,6 +48,13 @@ public class MazeActivity extends Activity {
         mapController.setZoom(15);
         GeoPoint point2 = new GeoPoint(53554070, -2959520);
         mapController.setCenter(point2);
+        
+        
+        mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100,
+                this);
+
+        
         
         mmapOverlay = new MapOverlay(this);
         List<Overlay> listOfOverlays = mapView.getOverlays();
@@ -89,6 +96,26 @@ public class MazeActivity extends Activity {
         }
 
     }
+    
+
+    public void onLocationChanged(Location location) {
+
+        int lat = (int) (location.getLatitude() * 1E6);
+        int lng = (int) (location.getLongitude() * 1E6);
+        GeoPoint gpt = new GeoPoint(lat, lng);
+        mapController.setCenter(gpt);
+        mapView.invalidate();
+    }
+  
+    @Override
+    public void onProviderDisabled(String arg0) {}
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
+   
 
 
 }
