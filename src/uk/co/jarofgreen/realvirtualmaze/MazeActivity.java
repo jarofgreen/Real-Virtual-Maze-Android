@@ -51,8 +51,8 @@ public class MazeActivity extends Activity implements LocationListener  {
         mapController.setCenter(point2);
         
         
-       // mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
-       // mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
+        mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
 
         
         
