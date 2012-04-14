@@ -21,6 +21,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class MazeActivity extends Activity {
 	
@@ -28,7 +29,8 @@ public class MazeActivity extends Activity {
     private MapView mapView;
     private MapController mapController;
     private LocationManager mLocMgr;
-	
+    private MapOverlay mmapOverlay = null;
+
 	
     /** Called when the activity is first created. */
     @Override
@@ -41,10 +43,52 @@ public class MazeActivity extends Activity {
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setBuiltInZoomControls(true);
         mapView.setMultiTouchControls(true);
-
-
-        //mapView.invalidate();
+        
+        mapController = this.mapView.getController();
+        mapController.setZoom(15);
+        GeoPoint point2 = new GeoPoint(53554070, -2959520);
+        mapController.setCenter(point2);
+        
+        mmapOverlay = new MapOverlay(this);
+        List<Overlay> listOfOverlays = mapView.getOverlays();
+        listOfOverlays.add(mmapOverlay);
+        mapView.invalidate();
 
         
+        
     }
+    
+    
+    
+    public class MapOverlay extends org.osmdroid.views.overlay.Overlay {
+
+        public MapOverlay(Context ctx) {
+            super(ctx);
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        protected void draw(Canvas pC, MapView pOsmv, boolean shadow) {
+            if (shadow)
+                return;
+
+            Paint lp3;
+            lp3 = new Paint();
+            lp3.setColor(Color.RED);
+            lp3.setAntiAlias(true);
+            lp3.setStyle(Style.STROKE);
+            lp3.setStrokeWidth(1);
+            lp3.setTextAlign(Paint.Align.LEFT);
+            lp3.setTextSize(12);
+            final Rect viewportRect = new Rect();
+            final Projection projection = pOsmv.getProjection();
+            viewportRect.set(projection.getScreenRect());
+            // Draw a line from one corner to the other
+            pC.drawLine(viewportRect.left, viewportRect.top,
+                    viewportRect.right, viewportRect.bottom, lp3);
+        }
+
+    }
+
+
 }
