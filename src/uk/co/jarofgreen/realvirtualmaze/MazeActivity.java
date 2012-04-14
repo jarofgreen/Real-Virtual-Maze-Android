@@ -47,7 +47,7 @@ public class MazeActivity extends Activity implements LocationListener  {
         
         mapController = this.mapView.getController();
         mapController.setZoom(15);
-        GeoPoint point2 = new GeoPoint(55965139, -3203201);
+        GeoPoint point2 = new GeoPoint(55950352, -3175312);
         mapController.setCenter(point2);
         
         
@@ -55,14 +55,16 @@ public class MazeActivity extends Activity implements LocationListener  {
         mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
 
         
-        
-        
-        mmapOverlay = new PathOverlay(Color.RED, this);
-        mmapOverlay.addPoint(new GeoPoint(55964139, -3203201));
-        mmapOverlay.addPoint(new GeoPoint(55966139, -3203201));
-        
         List<Overlay> listOfOverlays = mapView.getOverlays();
+        
+        
+        mmapOverlay = new PathOverlay(Color.RED, this);        
+        mmapOverlay.addPoint(new GeoPoint(55950352, -3175312));
+        mmapOverlay.addPoint(new GeoPoint(55950772, -3173670));
+        mmapOverlay.addPoint(new GeoPoint(55951523, -3175398));
+        mmapOverlay.addPoint(new GeoPoint(55951223, -3176395));
         listOfOverlays.add(mmapOverlay);
+
         
         mapView.invalidate();
 
