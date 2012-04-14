@@ -46,13 +46,12 @@ public class MazeActivity extends Activity implements LocationListener  {
         
         mapController = this.mapView.getController();
         mapController.setZoom(15);
-        GeoPoint point2 = new GeoPoint(53554070, -2959520);
+        GeoPoint point2 = new GeoPoint(55965139, -3203201);
         mapController.setCenter(point2);
         
         
-        mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100,
-                this);
+       // mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+       // mLocMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
 
         
         
